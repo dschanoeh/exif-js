@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300);
+@import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 .exifouter {
     position: relative;
@@ -9,6 +10,10 @@
     position: absolute;
     bottom: 0px;
     padding: 10px;
+}
+
+.exif,
+.exif a {
     font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Lato', sans-serif;
     font-size: 14px;
     background: rgba(0,0,0,0.001);
@@ -23,7 +28,8 @@
     -webkit-transition-delay: 0.2s;
 }
 
-.exifouter:hover .exif {
+.exifouter:hover .exif,
+.exifouter:hover a {
     background: rgba(0,0,0,0.6);
     color: white;
 }
