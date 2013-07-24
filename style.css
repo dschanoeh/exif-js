@@ -12,7 +12,15 @@
     font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Lato', sans-serif;
     font-size: 14px;
     background: rgba(0,0,0,0.001);
-    color: rgba(0,0,0,0);
+    color: rgba(0,0,0,0.001);
+    /* These transitions break hover on touch devices */
+    -webkit-transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    -moz-transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    -ms-transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    -o-transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    transition-delay: 0.2s;
+    -webkit-transition-delay: 0.2s;
 }
 
 .exifouter:hover .exif {

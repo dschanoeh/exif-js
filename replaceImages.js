@@ -44,20 +44,25 @@ var replaceImage=function(im) {
 
         /* Only display if there is information */
         if(fields > 3) {
-            //im.title = text;
 
-            var outer = document.createElement('div');
-            outer.setAttribute("class", "exifouter");
+            var isTouchDevice = 'ontouchstart' in document.documentElement;
+            /* On touch devices we set the title of the image to the generated text */
+            if(isTouchDevice) {
+                im.parentNode.title = text;
+            /* On non touch devices we add the hover box */
+            } else {
+                var outer = document.createElement('div');
+                outer.setAttribute("class", "exifouter");
 
-            im.parentNode.parentNode.appendChild(outer);
+                im.parentNode.parentNode.appendChild(outer);
 
-            var inner = document.createElement('div');
-            inner.setAttribute("class", "exif");
-            inner.innerHTML = text;
+                var inner = document.createElement('div');
+                inner.setAttribute("class", "exif");
+                inner.innerHTML = text;
 
-            outer.appendChild(im.parentNode);
-            outer.appendChild(inner);
-
+                outer.appendChild(im.parentNode);
+                outer.appendChild(inner);
+            }
         }
     });
 };
