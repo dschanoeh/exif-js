@@ -20,16 +20,26 @@ var BinaryFile = function(strData, iDataOffset, iDataLength) {
 		this.getByteAt = function(iOffset) {
 			return data.charCodeAt(iOffset + dataOffset) & 0xFF;
 		}
-		
+
 		this.getBytesAt = function(iOffset, iLength) {
 			var aBytes = [];
-			
+
 			for (var i = 0; i < iLength; i++) {
 				aBytes[i] = data.charCodeAt((iOffset + i) + dataOffset) & 0xFF
 			};
-			
+
 			return aBytes;
 		}
+	} else if (strData instanceof ArrayBuffer) {
+	  dataLength = iDataLength || data.byteLength;
+
+	  this.getByteAt = function(iOffset) {
+	    return (new Uint8Array(data.slice(iOffset, iOffset+1)))[0];
+	  };
+
+	  this.getBytesAt = function(iOffset, iLength) {
+	    return (new Uint8Array(data.slice(iOffset, iOffset+iLength)));
+	  };
 	} else if (typeof strData == "unknown") {
         data = new VBArray(strData).toArray();
         dataLength = iDataLength || data.length;
@@ -60,7 +70,7 @@ var BinaryFile = function(strData, iDataOffset, iDataLength) {
 	}
 
 	this.getShortAt = function(iOffset, bBigEndian) {
-		var iShort = bBigEndian ? 
+		var iShort = bBigEndian ?
 			(this.getByteAt(iOffset) << 8) + this.getByteAt(iOffset + 1)
 			: (this.getByteAt(iOffset + 1) << 8) + this.getByteAt(iOffset)
 		if (iShort < 0) iShort += 65536;
@@ -79,7 +89,7 @@ var BinaryFile = function(strData, iDataOffset, iDataLength) {
 			iByte3 = this.getByteAt(iOffset + 2),
 			iByte4 = this.getByteAt(iOffset + 3);
 
-		var iLong = bBigEndian ? 
+		var iLong = bBigEndian ?
 			(((((iByte1 << 8) + iByte2) << 8) + iByte3) << 8) + iByte4
 			: (((((iByte4 << 8) + iByte3) << 8) + iByte2) << 8) + iByte1;
 		if (iLong < 0) iLong += 4294967296;
@@ -95,14 +105,14 @@ var BinaryFile = function(strData, iDataOffset, iDataLength) {
 
 	this.getStringAt = function(iOffset, iLength) {
 		var aStr = [];
-		
+
 		var aBytes = this.getBytesAt(iOffset, iLength);
 		for (var j=0; j < iLength; j++) {
 			aStr[j] = String.fromCharCode(aBytes[j]);
 		}
 		return aStr.join("");
 	}
-	
+
 	this.getCharAt = function(iOffset) {
 		return String.fromCharCode(this.getByteAt(iOffset));
 	}
@@ -225,14 +235,14 @@ var BinaryAjax = (function() {
 
 		if (aRange) {
 			getHead(
-				strURL, 
+				strURL,
 				function(oHTTP) {
 					var iLength = parseInt(oHTTP.getResponseHeader("Content-Length"),10);
 					var strAcceptRanges = oHTTP.getResponseHeader("Accept-Ranges");
 
 					var iStart, iEnd;
 					iStart = aRange[0];
-					if (aRange[0] < 0) 
+					if (aRange[0] < 0)
 						iStart += iLength;
 					iEnd = iStart + aRange[1] - 1;
 
