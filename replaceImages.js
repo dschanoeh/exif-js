@@ -13,56 +13,72 @@ var replaceImage=function(im) {
         var fields = 0;
 
         if(!isNaN(exposure)) {
+            overlaytext += '<div class="exifelement"><i class="icon-time"></i> ';
             if(exposure < 1) {
                 text = text + "1/" + Math.round(1.0/exposure);
-                overlaytext = overlaytext + "1/" + Math.round(1.0/exposure);
+                overlaytext += '1/' + Math.round(1.0/exposure);
             } else {
                 text = text + Math.round(exposure);
-                overlaytext = overlaytext + Math.round(exposure);
+                overlaytext += Math.round(exposure);
             }
+            overlaytext += '</div>';
             fields++;
         }
 
         if(!isNaN(aperture)) {
             text = text + " at f/" + aperture;
-            overlaytext = overlaytext + " at f/" + aperture;
+            overlaytext += '<div class="exifelement"><i class="icon-bullseye"></i> ';
+            overlaytext += 'f/' + aperture
+            overlaytext += '</div>';
             fields++;
         }
 
         if(!isNaN(iso)) {
+            overlaytext += '<div class="exifelement">';
             text = text + " with ISO " + iso;
-            overlaytext = overlaytext + " with ISO " + iso;
+            overlaytext = overlaytext + "ISO " + iso;
+            overlaytext += '</div>';
             fields++;
         }
         if(make && model) {
             /* Make sure make is not displayed twice */
             if(model.indexOf(make) === 0) {
                 text = text + " (" + model;
-                overlaytext = overlaytext + " (" + model;
+                overlaytext += '<div class="exifelement"><i class="icon-camera"></i> ';
+                overlaytext += model;
+                overlaytext += '</div>';
             } else {
                 text = text + " (" + make + " " + model;
-                overlaytext = overlaytext + " (" + make + " " + model;
+                overlaytext += '<div class="exifelement"><i class="icon-tag"></i> ';
+                overlaytext += make;
+                overlaytext += '</div>';
+                overlaytext += '<div class="exifelement"><i class="icon-camera"></i> ';
+                overlaytext += model;
+                overlaytext += '</div>';
             }
             fields+=2;
         }
 
         if(!isNaN(focalLength)) {
+            overlaytext += '<div class="exifelement"><i class="icon-resize-full"></i> ';
             text = text + " at " + focalLength + "mm";
-            overlaytext = overlaytext + " at " + focalLength + "mm";
+            overlaytext += focalLength + "mm";
+            overlaytext += '</div>';
             fields++;
         }
 
         text += ")";
-        overlaytext += ")";
 
         if(lata && lona) {
             lat = lata[0] + (1.0/60.0) * lata[1];
             lon = lona[0] + (1.0/60.0) * lona[1];
+            overlaytext += '<div class="exifelement"><i class="icon-map-marker"></i> ';
             overlaytext += ' <a target="_blank" href="http://maps.google.com/?q=';
             overlaytext += lat.toString();
             overlaytext += ',';
             overlaytext += lon.toString();
-            overlaytext += '">[GPS]</a>';
+            overlaytext += '">map</a>';
+            overlaytext += '</div>';
         }
 
         /* Only display if there is information */

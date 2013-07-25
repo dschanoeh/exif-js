@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300);
-@import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import url(http://jansblog.org/font-awesome/css/font-awesome.min.css);
 
 .exifouter {
     position: relative;
@@ -32,4 +32,10 @@
 .exifouter:hover a {
     background: rgba(0,0,0,0.6);
     color: white;
+}
+
+.exifelement {
+    margin-left: 4px;
+    margin-right: 4px;
+    float: left;
 }
