@@ -43,19 +43,17 @@ var replaceImage=function(im) {
         if(make && model) {
             /* Make sure make is not displayed twice */
             if(model.indexOf(make) === 0) {
-                text = text + " (" + model;
-                overlaytext += '<div class="exifelement"><i class="icon-camera"></i> ';
-                overlaytext += model;
-                overlaytext += '</div>';
-            } else {
-                text = text + " (" + make + " " + model;
-                overlaytext += '<div class="exifelement"><i class="icon-tag"></i> ';
-                overlaytext += make;
-                overlaytext += '</div>';
-                overlaytext += '<div class="exifelement"><i class="icon-camera"></i> ';
-                overlaytext += model;
-                overlaytext += '</div>';
+                model = model.substr(make.length+1);
             }
+
+            text = text + " (" + make + " " + model;
+            overlaytext += '<div class="exifelement"><i class="icon-tag"></i> ';
+            overlaytext += make;
+            overlaytext += '</div>';
+            overlaytext += '<div class="exifelement"><i class="icon-camera"></i> ';
+            overlaytext += model;
+            overlaytext += '</div>';
+
             fields+=2;
         }
 
