@@ -91,13 +91,15 @@ var replaceImage=function(im) {
                 var outer = document.createElement('div');
                 outer.setAttribute("class", "exifouter");
 
-                im.parentNode.parentNode.appendChild(outer);
+                var thepost = im.parentNode.parentNode;
+                var thea = im.parentNode
+                thepost.replaceChild(outer, thea);
 
                 var inner = document.createElement('div');
                 inner.setAttribute("class", "exif");
                 inner.innerHTML = overlaytext;
 
-                outer.appendChild(im.parentNode);
+                outer.appendChild(thea);
                 outer.appendChild(inner);
             }
         }
