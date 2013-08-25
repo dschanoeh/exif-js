@@ -93,6 +93,7 @@ var replaceImage=function(im) {
 
                 var thepost = im.parentNode.parentNode;
                 var thea = im.parentNode
+                var imageStyle = window.getComputedStyle(im);
                 thepost.replaceChild(outer, thea);
 
                 var inner = document.createElement('div');
@@ -101,6 +102,7 @@ var replaceImage=function(im) {
 
                 outer.appendChild(thea);
                 outer.appendChild(inner);
+                inner.style.marginLeft = imageStyle.marginLeft;
             }
         }
     });
