@@ -13,7 +13,7 @@ var replaceImage=function(im) {
         var fields = 0;
 
         if(!isNaN(exposure)) {
-            overlaytext += '<div class="exifelement"><i class="icon-time"></i> ';
+            overlaytext += '<div class="exifelement"><i class="fa fa-clock-o"></i> ';
             if(exposure < 1) {
                 text = text + "1/" + Math.round(1.0/exposure);
                 overlaytext += '1/' + Math.round(1.0/exposure);
@@ -27,7 +27,7 @@ var replaceImage=function(im) {
 
         if(!isNaN(aperture)) {
             text = text + " at f/" + aperture;
-            overlaytext += '<div class="exifelement"><i class="icon-bullseye"></i> ';
+            overlaytext += '<div class="exifelement"><i class="fa fa-bullseye"></i> ';
             overlaytext += 'f/' + aperture
             overlaytext += '</div>';
             fields++;
@@ -47,10 +47,10 @@ var replaceImage=function(im) {
             }
 
             text = text + " (" + make + " " + model;
-            overlaytext += '<div class="exifelement"><i class="icon-tag"></i> ';
+            overlaytext += '<div class="exifelement"><i class="fa fa-tag"></i> ';
             overlaytext += make;
             overlaytext += '</div>';
-            overlaytext += '<div class="exifelement"><i class="icon-camera"></i> ';
+            overlaytext += '<div class="exifelement"><i class="fa fa-camera"></i> ';
             overlaytext += model;
             overlaytext += '</div>';
 
@@ -58,7 +58,7 @@ var replaceImage=function(im) {
         }
 
         if(!isNaN(focalLength)) {
-            overlaytext += '<div class="exifelement"><i class="icon-resize-full"></i> ';
+            overlaytext += '<div class="exifelement"><i class="fa fa-expand"></i> ';
             text = text + " at " + focalLength + "mm";
             overlaytext += focalLength + "mm";
             overlaytext += '</div>';
@@ -70,7 +70,7 @@ var replaceImage=function(im) {
         if(lata && lona) {
             lat = lata[0] + (1.0/60.0) * lata[1];
             lon = lona[0] + (1.0/60.0) * lona[1];
-            overlaytext += '<div class="exifelement"><i class="icon-map-marker"></i> ';
+            overlaytext += '<div class="exifelement"><i class="fa fa-map-marker"></i> ';
             overlaytext += ' <a target="_blank" href="http://maps.google.com/?q=';
             overlaytext += lat.toString();
             overlaytext += ',';
