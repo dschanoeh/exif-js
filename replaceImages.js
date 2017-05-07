@@ -1,13 +1,15 @@
 var replaceImage=function(im) {
     EXIF.getData(im, function() {
-        make = EXIF.getTag(im, "Make"),
-        model = EXIF.getTag(im, "Model");
-        lata = EXIF.getTag(im, "GPSLatitude");
-        lona = EXIF.getTag(im, "GPSLongitude");
-        aperture = parseFloat(EXIF.getTag(im, "FNumber"));
-        exposure = parseFloat(EXIF.getTag(im, "ExposureTime"));
-        iso = parseFloat(EXIF.getTag(im, "ISOSpeedRatings"));
-        focalLength = parseFloat(EXIF.getTag(im, "FocalLength"));
+        make = EXIF.getTag(this, "Make"),
+        model = EXIF.getTag(this, "Model");
+        lata = EXIF.getTag(this, "GPSLatitude");
+        latref = EXIF.getTag(this, "GPSLatitudeRef");
+        lona = EXIF.getTag(this, "GPSLongitude");
+        lonref = EXIF.getTag(this, "GPSLongitudeRef");
+        aperture = parseFloat(EXIF.getTag(this, "FNumber"));
+        exposure = parseFloat(EXIF.getTag(this, "ExposureTime"));
+        iso = parseFloat(EXIF.getTag(this, "ISOSpeedRatings"));
+        focalLength = parseFloat(EXIF.getTag(this, "FocalLength"));
         var text = "";
         var overlaytext = "";
         var fields = 0;
@@ -67,9 +69,16 @@ var replaceImage=function(im) {
 
         text += ")";
 
-        if(lata && lona) {
-            lat = lata[0] + (1.0/60.0) * lata[1];
-            lon = lona[0] + (1.0/60.0) * lona[1];
+        if(lata && lona && latref && lonref) {
+            lat = lata[0] + (lata[1] / 60.0) + (lata[2] * 1/3600);
+            lon = lona[0] + (lona[1] / 60.0) + (lona[2] * 1/3600);
+
+            if(lonref == 'W') {
+                lon = -1 * lon;
+            }
+            if(latref == 'S') {
+                lat = -1 * lat;
+            }
             overlaytext += '<div class="exifelement"><i class="fa fa-map-marker"></i> ';
             overlaytext += ' <a target="_blank" href="http://maps.google.com/?q=';
             overlaytext += lat.toString();
@@ -78,7 +87,6 @@ var replaceImage=function(im) {
             overlaytext += '">map</a>';
             overlaytext += '</div>';
         }
-
         /* Only display if there is information */
         if(fields > 3) {
 
@@ -137,4 +145,3 @@ var replaceImages=function() {
 };
 
 window.onload=replaceImages;
-
